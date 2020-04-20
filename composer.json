@@ -1,0 +1,44 @@
+{
+    "name": "yoctometre/aliyun-vod",
+    "description": "AliYun Vod For Hyperf",
+    "keywords": [
+        "php",
+        "swoole",
+        "hyperf",
+        "aliyun",
+        "vod"
+    ],
+    "license": "MIT",
+    "require": {
+        "yoctometre/aliyun-core": "^1.0",
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "yoctometre/aliyun-core": "^1.0",
+        "php": ">=7.2"
+    },
+    "authors": [
+        {
+            "name": "xiaoyin199",
+            "email": "xiaoyin199@126.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ym\\AliyunVod\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "YmTest\\AliyunVod\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "hyperf": {
+            "config": "Ym\\AliyunVod\\ConfigProvider"
+        }
+    }
+}
