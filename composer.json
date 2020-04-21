@@ -10,8 +10,9 @@
     ],
     "license": "MIT",
     "require": {
-        "yoctometre/aliyun-core": "^1.0",
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "hyperf/utils": "^1.1",
+        "yoctometre/aliyun-core": "^1.0"
     },
     "require-dev": {
         "yoctometre/aliyun-core": "^1.0",

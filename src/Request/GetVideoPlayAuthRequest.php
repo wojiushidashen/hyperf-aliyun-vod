@@ -5,7 +5,6 @@ namespace Ym\AliyunVod\Request;
 use Ym\AliyunCore\RpcAcsRequest;
 
 /**
- * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
  *
  * Request of GetVideoPlayAuth
  *

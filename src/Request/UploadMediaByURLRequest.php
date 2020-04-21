@@ -5,7 +5,7 @@ namespace Ym\AliyunVod\Request;
 use Ym\AliyunCore\RpcAcsRequest;
 
 /**
- * @deprecated Please use https://github.com/aliyun/openapi-sdk-php
+ * 
  *
  * Request of UploadMediaByURL
  *
@@ -167,6 +167,32 @@ class UploadMediaByURLRequest extends RpcAcsRequest
     {
         $this->requestParameters['StorageLocation'] = $storageLocation;
         $this->queryParameters['StorageLocation'] = $storageLocation;
+
+        return $this;
+    }
+
+    /**
+     * @param string $appId
+     *
+     * @return $this
+     */
+    public function setAppId($appId)
+    {
+        $this->requestParameters['AppId'] = $appId;
+        $this->queryParameters['AppId'] = $appId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $workflowId
+     *
+     * @return $this
+     */
+    public function setWorkflowId($workflowId)
+    {
+        $this->requestParameters['WorkflowId'] = $workflowId;
+        $this->queryParameters['WorkflowId'] = $workflowId;
 
         return $this;
     }
