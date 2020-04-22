@@ -1,39 +1,77 @@
-# 阿里云VOD
+# AliyunVod For Hyperf
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+#### README
 
-#### 软件架构
-软件架构说明
+> 因为项目驱动，目前只自定义了几个简单的方法，用于视频查询鉴权和视频上传系列接口，比较其他很多功能接口，我个人觉得直接去控制台更好管理。如果你执意要用，那我只能说你很棒棒哦，需要vod其他的api方法调用，可以参考官方SDK文档使用本包进行调用，本包包含官方所有接口文件，composer已自动载入官方SDK,可以参考 `MediaUpload.php` `MediaRead.php`
 
 
-#### 安装教程
+#### Installing
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+> composer require yoctometre/aliyun-vod -v
 
 
-#### 码云特技
+#### Configuration
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+生成配置文件，如下两个方案：
+1.  拷贝项目下`publish/aliyun_vod.php`到你项目中`config/autoload/`目录下
+2.  `php bin/hyperf.php vendor:publish yoctometre/aliyun-vod`
+
+配置示例代码：
+
+```
+return [
+    'access_key' => env('ALIYUN_VOD_AK', ''),
+    'secret_key' => env('ALIYUN_VOD_SK', ''),
+    // 回调鉴权，签名所使用的key
+    'private_key' => env('ALIYUN_VOD_PK', ''),
+    // 类型:access|sts 如果是sts 实例化对象时候需要传入$securityToken
+    'type' => env('ALIYUN_SLS_PROJECT', 'access'),
+    // 返回数据格式
+    'accept_format' => 'JSON',
+    // 阿里云jssdk的请求参数
+    // 账号ID
+    'account_id' => env('ALIYUN_VOD_ACCOUNT', ''),
+    // 点播的接入区域
+    'region_id' => env('ALIYUN_VOD_REGION', 'cn-shanghai'),
+    // 超时
+    'timeout' => 3600,
+    // 分片大小1M
+    'part_size' => 1024*1024*0.5,
+    // 并行上传分片个数
+    'parallel' => 5,
+    // 网络故障重传次数
+    'retry_count' => 3,
+    // 网络故障，重传间隔
+    'retry_duration' => 2,
+];
+```
+
+#### Example
+
+```
+use Ym\AliyunVod\MediaRead;
+use Ym\AliyunVod\MediaUpload;
+
+………………省略实例化等过程
+
+   $data = [
+        'title' => 'title',
+        'filename' => 'filename.mp4',
+        'description' => 'filename.mp4',
+        'cover' => 'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg',
+        'tags' => ['标签1','标签2']
+    ];
+    // 获取视频上传地址和凭证
+//            $result = $this->mediaUpload->createUploadVideo($data);
+    // 刷新视频上传凭证
+    $videoId = '4b3d76bf31664f9d8c85f77be5349e7b';
+    $result =  $this->mediaUpload->refreshUploadVideo($videoId);
+//            $result = $this->mediaUpload->uploadMediaByURL($url,$title);  //url 拉去视屏上传
+//            获取播放权限参数
+//            $result =  $this->mediaRead->getPlayAuth(['video_id'=>$videoId]);
+    // 获取播放信息
+//            $result =  $this->mediaRead->getPlayInfo(['video_id'=>$videoId]);
+
+    var_dump($result);
+    return $result;
+```
