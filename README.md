@@ -7,14 +7,14 @@
 
 #### Installing
 
-> composer require yoctometre/aliyun-vod -v
+> composer require ezijing/aliyun-vod -v
 
 
 #### Configuration
 
 生成配置文件，如下两个方案：
 1.  拷贝项目下`publish/aliyun_vod.php`到你项目中`config/autoload/`目录下
-2.  `php bin/hyperf.php vendor:publish yoctometre/aliyun-vod`
+2.  `php bin/hyperf.php vendor:publish ezijing/aliyun-vod`
 
 配置示例代码：
 
